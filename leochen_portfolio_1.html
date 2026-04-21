@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leo Chen — Research & Economics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDEAE3;
+    --ink: #1A1814;
+    --ink2: #5A5650;
+    --ink3: #9A9590;
+    --accent: #1D4E8F;
+    --accent2: #C8402A;
+    --border: rgba(26,24,20,0.12);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 4rem;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; font-weight: 400; color: var(--ink2); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+    border-right: 1px solid var(--border);
+  }
+  .hero-tag {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5vw, 5rem);
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name em { color: var(--accent2); font-style: italic; }
+  .hero-desc {
+    font-size: 1.05rem; color: var(--ink2); line-height: 1.75;
+    max-width: 420px; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.75rem 1.75rem; background: var(--ink); color: var(--bg);
+    font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-secondary {
+    padding: 0.75rem 1.75rem; background: transparent; color: var(--ink);
+    font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border: 1px solid var(--ink); cursor: pointer; text-decoration: none;
+    transition: all 0.2s; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--bg); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 6rem 4rem;
+    background: var(--bg2);
+  }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 3rem; }
+  .stat-box {
+    background: var(--bg); padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .stat-num { font-family: var(--serif); font-size: 2.5rem; color: var(--ink); line-height: 1; margin-bottom: 0.35rem; }
+  .stat-label { font-size: 0.75rem; font-weight: 400; color: var(--ink3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .hero-quote {
+    font-family: var(--serif); font-size: 1.1rem; font-style: italic;
+    color: var(--ink2); line-height: 1.65;
+    border-left: 3px solid var(--accent2); padding-left: 1.25rem;
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 4rem; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; }
+  .section-num { font-size: 0.75rem; font-weight: 500; color: var(--ink3); letter-spacing: 0.1em; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--ink); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--ink2); margin-bottom: 1.25rem; line-height: 1.8; font-weight: 300; }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-details { display: flex; flex-direction: column; gap: 0; }
+  .detail-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+  .detail-row:first-child { border-top: 1px solid var(--border); }
+  .detail-label { color: var(--ink3); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .detail-value { color: var(--ink); font-weight: 400; }
+
+  /* RESEARCH */
+  .research-grid { display: grid; gap: 2px; }
+  .paper-card {
+    background: var(--bg2); padding: 2.5rem;
+    border: 1px solid var(--border);
+    transition: background 0.2s;
+    position: relative;
+  }
+  .paper-card:hover { background: var(--bg); }
+  .paper-card.featured { background: var(--ink); color: var(--bg); }
+  .paper-card.featured .paper-journal,
+  .paper-card.featured .paper-abstract,
+  .paper-card.featured .paper-meta { color: rgba(247,244,239,0.6); }
+  .paper-card.featured .paper-title { color: var(--bg); }
+  .paper-status {
+    display: inline-block; font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.25rem 0.65rem; margin-bottom: 1.25rem;
+  }
+  .status-submitted { background: #E8F0F8; color: var(--accent); }
+  .status-progress { background: #FBF0ED; color: var(--accent2); }
+  .status-featured { background: rgba(247,244,239,0.15); color: rgba(247,244,239,0.9); }
+  .paper-title { font-family: var(--serif); font-size: 1.35rem; margin-bottom: 0.75rem; line-height: 1.3; }
+  .paper-journal { font-size: 0.8rem; color: var(--ink3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem; }
+  .paper-abstract { font-size: 0.9rem; color: var(--ink2); line-height: 1.7; margin-bottom: 1.5rem; font-weight: 300; }
+  .paper-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .tag {
+    font-size: 0.72rem; padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border); color: var(--ink2);
+    letter-spacing: 0.04em;
+  }
+  .paper-card.featured .tag { border-color: rgba(247,244,239,0.2); color: rgba(247,244,239,0.7); }
+  .paper-meta { font-size: 0.78rem; color: var(--ink3); }
+  .paper-link {
+    position: absolute; top: 2.5rem; right: 2.5rem;
+    font-size: 0.75rem; font-weight: 500; color: var(--accent);
+    text-decoration: none; letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .paper-card.featured .paper-link { color: rgba(247,244,239,0.8); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .skill-card {
+    background: var(--bg2); padding: 2rem;
+    border: 1px solid var(--border);
+  }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .skill-title { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .skill-desc { font-size: 0.85rem; color: var(--ink2); line-height: 1.65; font-weight: 300; }
+  .skill-items { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-item { font-size: 0.72rem; color: var(--ink3); padding: 0.15rem 0.5rem; border: 1px solid var(--border); }
+
+  /* CONTACT */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .contact-text { font-size: 1.05rem; color: var(--ink2); line-height: 1.8; font-weight: 300; }
+  .contact-text p { margin-bottom: 1.25rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
+  .contact-link {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--ink);
+    transition: padding-left 0.2s;
+  }
+  .contact-link:first-child { border-top: 1px solid var(--border); }
+  .contact-link:hover { padding-left: 0.5rem; color: var(--accent); }
+  .contact-link-label { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; }
+  .contact-link-arrow { font-size: 0.9rem; color: var(--ink3); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; color: var(--ink3);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-tag { animation: fadeUp 0.6s ease both; }
+  .hero-name { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-btns { animation: fadeUp 0.6s 0.3s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { padding: 2rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Leo Chen</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Researcher &amp; Economist in Training</p>
+    <h1 class="hero-name">Leo<br><em>Chen</em></h1>
+    <p class="hero-desc">High school researcher conducting original empirical economics research. Currently investigating the institutional determinants of global educational attainment and AI applications in neuroscience.</p>
+    <div class="hero-btns">
+      <a href="#research" class="btn-primary">View Research</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-box">
+        <div class="stat-num">80</div>
+        <div class="stat-label">Countries Analyzed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">83%</div>
+        <div class="stat-label">Variance Explained</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Research Papers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">11th</div>
+        <div class="stat-label">Grade</div>
+      </div>
+    </div>
+    <p class="hero-quote">"GDP per capita explains much of the cross-national variance in educational outcomes — but the most important remaining variance is institutionally structured, and addressable through targeted policy."</p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a junior at Williamsville North High School in Buffalo, New York, with a passion for economics, entrepreneurship, and quantitative research. I initiated my first original research project in December 2025, building an 80-country dataset from World Bank and UNESCO primary sources and running original OLS regression and correlation analyses.</p>
+      <p>My research interest lies at the intersection of development economics and institutional analysis — specifically, understanding why countries with similar income levels achieve dramatically different educational outcomes. My current work demonstrates that armed conflict and Soviet institutional legacies explain more of this variation than income inequality or education spending.</p>
+      <p>Beyond research, I have a background in marketing, simulation trading and technical analysis, and competitive tennis. I'm driven by a long-term goal of building financial independence and contributing to meaningful economic development work.</p>
+    </div>
+    <div class="about-details">
+      <div class="detail-row">
+        <span class="detail-label">Location</span>
+        <span class="detail-value">Williamsville, New York</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">School</span>
+        <span class="detail-value">Williamsville North High School</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Grade</span>
+        <span class="detail-value">11th (Junior)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Research Started</span>
+        <span class="detail-value">December 2025</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Fields</span>
+        <span class="detail-value">Development Economics, Neuroscience</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Methods</span>
+        <span class="detail-value">OLS Regression, Pearson Correlation</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Tools</span>
+        <span class="detail-value">Python, statsmodels, scipy</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Interests</span>
+        <span class="detail-value">Entrepreneurship, Trading, Tennis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Research</h2>
+  </div>
+  <div class="research-grid">
+
+    <div class="paper-card featured">
+      <span class="paper-status status-featured">Submitted — Undergraduate Economic Review</span>
+      <h3 class="paper-title">GDP per Capita and Educational Outcomes: Why Nations Over- and Underperform Their Income-Predicted Attainment</h3>
+      <p class="paper-journal">Development Economics &bull; Cross-National Analysis &bull; April 2026</p>
+      <p class="paper-abstract">This study examines why countries systematically over- or underperform their income-predicted educational attainment across 80 nations. Original OLS regression analysis finds a strong positive association between ln(GDP per capita) and adult literacy (r = 0.81, R² = 0.66). Adding institutional dummy variables — Soviet education legacy and active armed conflict — raises explained variance to 83%. Conflict-affected countries score approximately 26 percentage points lower on literacy at equivalent income levels.</p>
+      <div class="paper-tags">
+        <span class="tag">GDP per capita</span>
+        <span class="tag">Literacy Rate</span>
+        <span class="tag">Armed Conflict</span>
+        <span class="tag">Soviet Legacy</span>
+        <span class="tag">OLS Regression</span>
+        <span class="tag">80 Countries</span>
+      </div>
+      <p class="paper-meta">Data: World Bank WDI &bull; UNESCO UIS &bull; UCDP/PRIO &bull; Initiated December 2025</p>
+    </div>
+
+    <div class="paper-card">
+      <span class="paper-status status-progress">In Progress</span>
+      <h3 class="paper-title">Artificial Intelligence in the Assessment of Neurological Diseases and Disorders: A Comprehensive Analysis</h3>
+      <p class="paper-journal">Computational Neuroscience &bull; Machine Learning &bull; 2026</p>
+      <p class="paper-abstract">An original empirical study applying machine learning classification models to neurological patient data to assess diagnostic accuracy across conditions including Alzheimer's disease, Parkinson's disease, and epilepsy. Using publicly available datasets including OASIS and PhysioNet.</p>
+      <div class="paper-tags">
+        <span class="tag">Artificial Intelligence</span>
+        <span class="tag">Neuroscience</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Alzheimer's</span>
+        <span class="tag">Neural Networks</span>
+      </div>
+      <p class="paper-meta">Data: OASIS &bull; PhysioNet &bull; In development</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Skills &amp; Background</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Quantitative Research</h3>
+      <p class="skill-desc">Original empirical analysis using real primary-source datasets. Comfortable with correlation analysis, OLS regression, robustness checks, and residual analysis.</p>
+      <div class="skill-items">
+        <span class="skill-item">OLS Regression</span>
+        <span class="skill-item">Pearson Correlation</span>
+        <span class="skill-item">Robustness Checks</span>
+        <span class="skill-item">Residual Analysis</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Programming</h3>
+      <p class="skill-desc">Python for statistical analysis and data science. Experience with scientific computing libraries for regression, visualization, and data manipulation.</p>
+      <div class="skill-items">
+        <span class="skill-item">Python</span>
+        <span class="skill-item">statsmodels</span>
+        <span class="skill-item">scipy</span>
+        <span class="skill-item">pandas</span>
+        <span class="skill-item">matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Economics</h3>
+      <p class="skill-desc">Strong foundation in development economics, human capital theory, and institutional economics. Familiar with key literature including Hanushek, Barro-Lee, and Acemoglu.</p>
+      <div class="skill-items">
+        <span class="skill-item">Development Economics</span>
+        <span class="skill-item">Human Capital Theory</span>
+        <span class="skill-item">Institutional Analysis</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Marketing</h3>
+      <p class="skill-desc">Practical marketing experience through internship work. Understanding of brand strategy, digital marketing, and consumer behavior.</p>
+      <div class="skill-items">
+        <span class="skill-item">Digital Marketing</span>
+        <span class="skill-item">Brand Strategy</span>
+        <span class="skill-item">Consumer Behavior</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Finance &amp; Trading</h3>
+      <p class="skill-desc">Experience with simulation trading and technical analysis. Interested in equity markets, chart reading, and the intersection of economics and financial markets.</p>
+      <div class="skill-items">
+        <span class="skill-item">Technical Analysis</span>
+        <span class="skill-item">Simulation Trading</span>
+        <span class="skill-item">Chart Reading</span>
+        <span class="skill-item">Equity Markets</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">&#9670;</div>
+      <h3 class="skill-title">Entrepreneurship</h3>
+      <p class="skill-desc">Strong interest in building businesses and financial independence. Background in family business and motivated by creating economic value and opportunity.</p>
+      <div class="skill-items">
+        <span class="skill-item">Business Strategy</span>
+        <span class="skill-item">Financial Independence</span>
+        <span class="skill-item">LaunchX Applicant</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-text">
+      <p>I'm always open to conversations about economics research, entrepreneurship, or potential collaborations. If you're a professor, researcher, or someone interested in my work, feel free to reach out.</p>
+      <p>I'm particularly interested in connecting with researchers working in development economics, education policy, or AI applications in medicine.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:your@email.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-arrow">your@email.com &rarr;</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-link-label">School</span>
+        <span class="contact-link-arrow">Williamsville North HS &rarr;</span>
+      </a>
+      <a href="#" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-arrow">Connect &rarr;</span>
+      </a>
+      <a href="#research" class="contact-link">
+        <span class="contact-link-label">Research Paper</span>
+        <span class="contact-link-arrow">Download PDF &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Leo Chen &copy; 2026</span>
+  <span>Williamsville, New York</span>
+</footer>
+
+</body>
+</html>
